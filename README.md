@@ -1,5 +1,32 @@
 <h1 align="center">Obsidian Tasks</h1>
 
+## JC Version
+
+Updated to create tasks with a timestamp.
+
+### Build
+
+```
+cd .docker
+docker compose run --rm tasks-dev
+
+(from container)
+
+yarn
+yarn build
+```
+
+### Push changes
+
+This repo has some weird plugin that wouldn't let me push. But I need to push, like a mother giving birth, I too must push my code to the world.
+So I just do this:
+
+```bash
+git push --no-verify
+```
+
+
+
 <p align="center">Task management for the <a href="https://obsidian.md/">Obsidian</a> knowledge base.</p>
 
 <p align="center"><a href="https://publish.obsidian.md/tasks/">User Guide</a> - <a href="https://publish.obsidian.md/tasks-contributing/">Contributing Guide</a> - <a href="https://github.com/orgs/obsidian-tasks-group/projects/4/views/1">Roadmap</a></p>

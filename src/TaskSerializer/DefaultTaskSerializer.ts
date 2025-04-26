@@ -55,7 +55,7 @@ export const taskIdRegex = /[a-zA-Z0-9-_]+/;
 export const taskIdSequenceRegex = new RegExp(taskIdRegex.source + '( *, *' + taskIdRegex.source + ' *)*');
 
 function dateFieldRegex(symbols: string) {
-    return fieldRegex(symbols, '(\\d{4}-\\d{2}-\\d{2})');
+    return fieldRegex(symbols, '(\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2})?)');
 }
 
 function fieldRegex(symbols: string, valueRegexString: string) {
@@ -119,7 +119,7 @@ function symbolAndDateValue(shortMode: boolean, symbol: string, date: moment.Mom
     // We could call symbolAndStringValue() to remove a little code repetition,
     // but doing so would do some wasted date-formatting when in 'short mode',
     // so instead we repeat the check on shortMode value.
-    return shortMode ? ' ' + symbol : ` ${symbol} ${date.format(TaskRegularExpressions.dateFormat)}`;
+    return shortMode ? ' ' + symbol : ` ${symbol} ${date.format(TaskRegularExpressions.dateTimeFormat)}`;
 }
 
 export function allTaskPluginEmojis() {
@@ -303,42 +303,42 @@ export class DefaultTaskSerializer implements TaskSerializer {
 
             const doneDateMatch = line.match(TaskFormatRegularExpressions.doneDateRegex);
             if (doneDateMatch !== null) {
-                doneDate = window.moment(doneDateMatch[1], TaskRegularExpressions.dateFormat);
+                doneDate = window.moment(doneDateMatch[1], TaskRegularExpressions.dateTimeFormat);
                 line = line.replace(TaskFormatRegularExpressions.doneDateRegex, '').trim();
                 matched = true;
             }
 
             const cancelledDateMatch = line.match(TaskFormatRegularExpressions.cancelledDateRegex);
             if (cancelledDateMatch !== null) {
-                cancelledDate = window.moment(cancelledDateMatch[1], TaskRegularExpressions.dateFormat);
+                cancelledDate = window.moment(cancelledDateMatch[1], TaskRegularExpressions.dateTimeFormat);
                 line = line.replace(TaskFormatRegularExpressions.cancelledDateRegex, '').trim();
                 matched = true;
             }
 
             const dueDateMatch = line.match(TaskFormatRegularExpressions.dueDateRegex);
             if (dueDateMatch !== null) {
-                dueDate = window.moment(dueDateMatch[1], TaskRegularExpressions.dateFormat);
+                dueDate = window.moment(dueDateMatch[1], TaskRegularExpressions.dateTimeFormat);
                 line = line.replace(TaskFormatRegularExpressions.dueDateRegex, '').trim();
                 matched = true;
             }
 
             const scheduledDateMatch = line.match(TaskFormatRegularExpressions.scheduledDateRegex);
             if (scheduledDateMatch !== null) {
-                scheduledDate = window.moment(scheduledDateMatch[1], TaskRegularExpressions.dateFormat);
+                scheduledDate = window.moment(scheduledDateMatch[1], TaskRegularExpressions.dateTimeFormat);
                 line = line.replace(TaskFormatRegularExpressions.scheduledDateRegex, '').trim();
                 matched = true;
             }
 
             const startDateMatch = line.match(TaskFormatRegularExpressions.startDateRegex);
             if (startDateMatch !== null) {
-                startDate = window.moment(startDateMatch[1], TaskRegularExpressions.dateFormat);
+                startDate = window.moment(startDateMatch[1], TaskRegularExpressions.dateTimeFormat);
                 line = line.replace(TaskFormatRegularExpressions.startDateRegex, '').trim();
                 matched = true;
             }
 
             const createdDateMatch = line.match(TaskFormatRegularExpressions.createdDateRegex);
             if (createdDateMatch !== null) {
-                createdDate = window.moment(createdDateMatch[1], TaskRegularExpressions.dateFormat);
+                createdDate = window.moment(createdDateMatch[1], TaskRegularExpressions.dateTimeFormat);
                 line = line.replace(TaskFormatRegularExpressions.createdDateRegex, '').trim();
                 matched = true;
             }

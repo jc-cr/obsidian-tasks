@@ -21,10 +21,10 @@ export function promptForDate(
     // TODO figure out how Today's date is determined: if Obsidian is left
     //      running overnight, the flatpickr modal shows the previous day as Today.
     const fp = flatpickr(parentElement, {
-        defaultDate: currentValue ? currentValue.format('YYYY-MM-DD') : new Date(),
+        defaultDate: currentValue ? currentValue.format('YYYY-MM-DD HH:mm') : new Date(),
         disableMobile: true,
-        enableTime: false, // Optional: Enable time picker
-        dateFormat: 'Y-m-d', // Adjust the date and time format as needed
+        enableTime: true, 
+        dateFormat: 'Y-m-d H:i', 
         locale: {
             // Try to determine the first day of the week based on the locale, or use Monday
             // if unavailable

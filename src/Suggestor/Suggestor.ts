@@ -213,8 +213,8 @@ function addTaskLifecycleDateSuggestions(
 ) {
     // This will eventually also support Done and Cancelled dates
     if (!parameters.line.includes(symbols.createdDateSymbol)) {
-        const parsedDate = DateParser.parseDate('today', true);
-        const formattedDate = parsedDate.format(TaskRegularExpressions.dateFormat);
+        const parsedDate = window.moment();
+        const formattedDate = parsedDate.format(TaskRegularExpressions.dateTimeFormat);
         genericSuggestions.push({
             // We don't want this to match when the user types "today"
             textToMatch: `${symbols.createdDateSymbol} created`,
@@ -265,8 +265,16 @@ function defaultExtractor(symbol: string, suggestionText: any) {
 }
 
 function dateExtractor(symbol: string, date: string) {
-    const parsedDate = DateParser.parseDate(date, true);
-    const formattedDate = `${parsedDate.format(TaskRegularExpressions.dateFormat)}`;
+    let parsedDate;
+    
+    // Special handling for "today" to include current time
+    if (date.toLowerCase() === 'today') {
+        parsedDate = window.moment();
+    } else {
+        parsedDate = DateParser.parseDate(date, true);
+    }
+    
+    const formattedDate = `${parsedDate.format(TaskRegularExpressions.dateTimeFormat)}`;
     const displayText = `${date} (${formattedDate})`;
     const appendText = `${symbol} ${formattedDate}`;
     return { displayText, appendText };
@@ -317,7 +325,7 @@ function addDatesSuggestions(
         if (possibleDate?.isValid()) {
             // Seems like the text that the user typed can be parsed as a valid date.
             // Present its completed form as a 1st suggestion
-            const absoluteDate = possibleDate.format(TaskRegularExpressions.dateFormat);
+            const absoluteDate = possibleDate.format(TaskRegularExpressions.dateTimeFormat);
             constructSuggestions(parameters, dateMatch, [absoluteDate], defaultExtractor, results);
         }
 

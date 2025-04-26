@@ -32,7 +32,7 @@
     }
 
     // 'weekend' abbreviation omitted due to lack of space.
-    const datePlaceholder = "Try 'Mon' or 'tm' then space";
+    const datePlaceholder = "Try 'Mon 3pm' or 'tm 15:00' then space";
 </script>
 
 <label for={id}>{@html labelContentWithAccessKey(id, accesskey)}</label>
